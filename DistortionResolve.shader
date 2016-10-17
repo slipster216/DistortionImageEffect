@@ -48,7 +48,11 @@
             // objects to fix it cheaply..
          
             // unpack distortion
-            float2 off = tex2D(_DistortionRT, i.uv) * 2 - 1;
+			float2 distortionUV = i.uv;
+#if UNITY_UV_STARTS_AT_TOP
+			distortionUV = float2(distortionUV.x, 1 - distortionUV.y);
+#endif
+			float2 off = tex2D(_DistortionRT, distortionUV) * 2 - 1;
             // distort UVs
             float2 uv = i.uv + off.xy * _DistortionScale;
             // that's it..
