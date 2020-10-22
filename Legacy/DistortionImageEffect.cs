@@ -79,7 +79,7 @@ namespace Jbooth
             return;
          }
          
-         Profiler.BeginSample("Distortion Image Effect");
+         UnityEngine.Profiling.Profiler.BeginSample("Distortion Image Effect");
          // setup materials
          if (compositeMaterial == null)
          {
@@ -97,21 +97,21 @@ namespace Jbooth
 
          
          // render distortions into buffer
-         Profiler.BeginSample("Render Distortion");
+         UnityEngine.Profiling.Profiler.BeginSample("Render Distortion");
          RenderTexture distortionRT = RenderTexture.GetTemporary(Screen.width / (int)factor, Screen.height / (int)factor, 0);
          EnforceCamera();
          effectCamera.targetTexture = distortionRT;
          effectCamera.Render();
 
-         Profiler.EndSample();
+         UnityEngine.Profiling.Profiler.EndSample();
 
          compositeMaterial.SetTexture("_MainTex", src);
          compositeMaterial.SetTexture("_DistortionRT", distortionRT);
          compositeMaterial.SetFloat("_DistortionScale", distortionScale);
 
-         Profiler.BeginSample("Composite");
+         UnityEngine.Profiling.Profiler.BeginSample("Composite");
          Graphics.Blit(src, dest, compositeMaterial);
-         Profiler.EndSample();
+         UnityEngine.Profiling.Profiler.EndSample();
          
          
          
@@ -125,7 +125,7 @@ namespace Jbooth
          
          // cleanup
          RenderTexture.ReleaseTemporary(distortionRT);
-         Profiler.EndSample();
+         UnityEngine.Profiling.Profiler.EndSample();
          
       }
    }
