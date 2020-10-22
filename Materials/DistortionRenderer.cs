@@ -42,13 +42,13 @@ namespace Jbooth
          
          if (distortionRT == null)
          {
-            distortionRT = RenderTexture.GetTemporary(Screen.width / (int) factor, Screen.height / (int) factor, 0);
+            distortionRT = new RenderTexture(Screen.width / (int) factor, Screen.height / (int) factor, 0, RenderTextureFormat.ARGB32, RenderTextureReadWrite.Linear);
          }
          else if (distortionRT.width != Screen.width / (int) factor ||
                   distortionRT.height != Screen.height / (int) factor)
          {
             RenderTexture.Destroy(distortionRT);
-            distortionRT = RenderTexture.GetTemporary(Screen.width / (int) factor, Screen.height / (int) factor, 0);
+            distortionRT = new RenderTexture(Screen.width / (int) factor, Screen.height / (int) factor, 0, RenderTextureFormat.ARGB32, RenderTextureReadWrite.Linear);
          }
 
          distortionRT.wrapMode = TextureWrapMode.Clamp;
@@ -62,7 +62,7 @@ namespace Jbooth
       {
          if (distortionRT != null)
          {
-            //RenderTexture.Destroy(distortionRT);
+            RenderTexture.Destroy(distortionRT);
          }
 
          if (effectCamera != null)
